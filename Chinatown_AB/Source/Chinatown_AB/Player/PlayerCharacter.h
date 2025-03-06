@@ -15,10 +15,7 @@ class CHINATOWN_AB_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	class UInputAction* MoveAction;
-	class UInputAction* LookAction;
-	class UInputAction* JumpAction;
-
+	
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
@@ -26,6 +23,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputMappingContext* PlayerCharacterContext;
@@ -39,7 +38,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
 
-
+	void LookInput(const FInputActionValue& Value);
+	void MoveInput(const FInputActionValue& Value);
+	void JumpInput(const FInputActionValue& Value);
 
 
 public:	
