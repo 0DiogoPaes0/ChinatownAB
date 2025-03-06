@@ -72,3 +72,5 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+Chinatown_AB/Saved/Logs/Chinatown_AB.log
+Chinatown_AB/Saved/SourceControl/UncontrolledChangelists.json
