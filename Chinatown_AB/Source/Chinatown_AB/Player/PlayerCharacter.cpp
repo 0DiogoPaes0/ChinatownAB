@@ -74,8 +74,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked <UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, APlayerCharacter::LookInput);
-		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, APlayerCharacter::MoveInput);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookInput);
+		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &APlayerCharacter::MoveInput);
 	}
 
 }
