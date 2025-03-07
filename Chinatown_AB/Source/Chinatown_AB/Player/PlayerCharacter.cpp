@@ -33,13 +33,11 @@ void APlayerCharacter::BeginPlay()
 
 void APlayerCharacter::LookInput(const FInputActionValue& Value)
 {
-	const FVector2D LookAxisValue = Value.Get<FVector2D>();
-
-	if (GetController()) 
-	{
-		AddControllerYawInput(LookAxisValue.X);
-		AddControllerPitchInput(LookAxisValue.Y);
-	}
+	const FVector2D LookAxisVector = Value.Get<FVector2D>();
+	
+	AddControllerYawInput(LookAxisVector.X);
+	AddControllerPitchInput(LookAxisVector.Y);
+	
 }
 
 void APlayerCharacter::MoveInput(const FInputActionValue& Value)
@@ -57,6 +55,7 @@ void APlayerCharacter::MoveInput(const FInputActionValue& Value)
 
 void APlayerCharacter::JumpInput(const FInputActionValue& Value)
 {
+	
 }
 
 // Called every frame
@@ -75,8 +74,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked <UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookInput);
-		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &APlayerCharacter::MoveInput);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::MoveInput);
 	}
-
 }
 	

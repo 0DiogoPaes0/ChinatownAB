@@ -33,7 +33,7 @@ protected:
 	UInputAction* LookAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	UInputAction* MovementAction;
+	UInputAction* MoveAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
