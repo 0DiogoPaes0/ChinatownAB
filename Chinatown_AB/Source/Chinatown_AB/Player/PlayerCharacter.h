@@ -10,6 +10,7 @@
 class UInputMappingContext;
 class UInputAction;
 
+
 UCLASS()
 class CHINATOWN_AB_API APlayerCharacter : public ACharacter
 {
@@ -19,6 +20,7 @@ class CHINATOWN_AB_API APlayerCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
+	virtual void Jump() override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -40,7 +42,7 @@ protected:
 
 	void LookInput(const FInputActionValue& Value);
 	void MoveInput(const FInputActionValue& Value);
-	void JumpInput(const FInputActionValue& Value);
+	//void JumpInput(const FInputActionValue& Value);
 
 
 public:	

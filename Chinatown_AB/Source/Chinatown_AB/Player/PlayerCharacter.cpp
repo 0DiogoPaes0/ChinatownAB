@@ -16,6 +16,10 @@ APlayerCharacter::APlayerCharacter()
 
 }
 
+void APlayerCharacter::Jump()
+{
+}
+
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay()
 {
@@ -53,10 +57,10 @@ void APlayerCharacter::MoveInput(const FInputActionValue& Value)
 	AddMovementInput(RightDirection, MovementVector.X);
 }
 
-void APlayerCharacter::JumpInput(const FInputActionValue& Value)
-{
-	
-}
+//void APlayerCharacter::JumpInput(const FInputActionValue& Value)
+//{
+//	
+//}
 
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
@@ -75,6 +79,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookInput);
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::MoveInput);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Jump);
 	}
 }
 	
