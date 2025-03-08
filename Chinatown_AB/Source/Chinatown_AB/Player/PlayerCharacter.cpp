@@ -6,6 +6,7 @@
 #include "Components/InputComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -18,6 +19,10 @@ APlayerCharacter::APlayerCharacter()
 
 void APlayerCharacter::Jump()
 {
+	if (CanJump()) 
+	{
+		Super::Jump();
+	}
 }
 
 // Called when the game starts or when spawned
@@ -57,16 +62,65 @@ void APlayerCharacter::MoveInput(const FInputActionValue& Value)
 	AddMovementInput(RightDirection, MovementVector.X);
 }
 
-//void APlayerCharacter::JumpInput(const FInputActionValue& Value)
-//{
-//	
-//}
+void APlayerCharacter::StartSprint()
+{
+	if (HasStamina) 
+	{		
+		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+
+		if (GetVelocity().Size() >= 0.5) 
+		{
+			IsSprinting = true;
+		}
+		else
+		{
+			IsSprinting = false;
+		}
+	}
+}
+
+void APlayerCharacter::EndSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	IsSprinting = false;
+}
+
+void APlayerCharacter::UpdateStamina()
+{
+	if (IsSprinting) 
+	{
+		CurrentStamina -= StaminaDrainAmount;
+		CurrentStaminaRefillDelay = MaxStaminaRefillDelay;
+	}
+	
+	if (!IsSprinting && CurrentStamina < MaxStamina)
+	{
+		CurrentStaminaRefillDelay--;
+		if (CurrentStaminaRefillDelay <= 0) 
+		{
+			CurrentStamina += StaminaRefillAmount;
+		}
+	}
+
+	if (CurrentStamina <= 0)
+	{
+		HasStamina = false;
+		EndSprint();
+	}
+	else
+	{
+		HasStamina = true;
+
+	}
+
+}
 
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UpdateStamina();
 }
 
 
@@ -78,8 +132,13 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked <UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookInput);
+
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::MoveInput);
+
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Jump);
+
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &APlayerCharacter::StartSprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &APlayerCharacter::EndSprint);
 	}
 }
 	
