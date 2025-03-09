@@ -74,3 +74,5 @@ Plugins/**/Intermediate/*
 DerivedDataCache/*
 Chinatown_AB/Saved/Logs/Chinatown_AB.log
 Chinatown_AB/Saved/SourceControl/UncontrolledChangelists.json
+Chinatown_AB/Content/MWLandscapeAutoMaterial/Maps/LandscapeAutoMaterial_Desert_Example.umap
+Chinatown_AB/Content/MWLandscapeAutoMaterial/Maps/LandscapeAutoMaterial_MountainRange_Example.umap
