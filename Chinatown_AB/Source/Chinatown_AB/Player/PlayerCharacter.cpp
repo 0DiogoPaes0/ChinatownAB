@@ -57,9 +57,9 @@ void APlayerCharacter::MoveInput(const FInputActionValue& Value)
 	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	AddMovementInput(ForwardDirection, MovementVector.Y);
+	AddMovementInput(ForwardDirection, MovementVector.Y, true);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(RightDirection, MovementVector.X);
+	AddMovementInput(RightDirection, MovementVector.X, true);
 }
 
 void APlayerCharacter::StartSprint()
